@@ -1,5 +1,6 @@
 package nokia.internship.packettracer.service;
 
+import nokia.internship.packettracer.exception.UserNotFoundException;
 import nokia.internship.packettracer.model.Graph;
 import nokia.internship.packettracer.model.User;
 import nokia.internship.packettracer.repo.UserRepo;
@@ -23,5 +24,9 @@ public class UserService {
 
     public List<User> findAllUsers() {
         return userRepo.findAll();
+    }
+
+    public User findUser(Long id) {
+        return userRepo.findUserById(id).orElseThrow(() -> new UserNotFoundException("User by Id " + id + "Not found"));
     }
 }

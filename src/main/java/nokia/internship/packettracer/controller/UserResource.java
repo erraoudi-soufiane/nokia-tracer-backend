@@ -32,4 +32,10 @@ public class UserResource {
         List<User> users = userService.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        User user = userService.findUser(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }
