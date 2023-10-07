@@ -12,9 +12,11 @@ public class Graph {
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private String name;
 
     @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
     private List<Node> nodes;
@@ -23,8 +25,9 @@ public class Graph {
     private List<Edge> edges;
 
 
-    public Graph(User user, List<Node> nodes, List<Edge> edges){
+    public Graph(User user, String name, List<Node> nodes, List<Edge> edges){
         this.user = user;
+        this.name = name;
         this.nodes = nodes;
         this.edges = edges;
     }
@@ -45,14 +48,22 @@ public class Graph {
 
 
     public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Graph{" +
                 "id=" + id +
-                ", nodes=" + nodes +
-                ", edges=" + edges +
+                ", name='" + name + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

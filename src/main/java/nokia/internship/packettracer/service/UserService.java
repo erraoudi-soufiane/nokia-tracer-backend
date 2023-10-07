@@ -22,14 +22,6 @@ public class UserService {
     }
 
     public User addUser(User user) {
-//        if (user.getGraphs() != null){
-//            for (Graph graph : user.getGraphs()){
-//                user.addGraph(graph);
-//                graphRepo.save(graph);
-//            }
-//            userRepo.save(user);
-//            return user;
-//        }
         return userRepo.save(user);
     }
 
@@ -37,7 +29,7 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User findUser(Long id) {
+    public User findUser(Integer id) {
         return userRepo.findUserById(id).orElseThrow(() -> new UserNotFoundException("User by Id " + id + "Not found"));
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -26,7 +25,7 @@ public class GraphResource {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Graph> addGraph(@RequestBody Graph graph, @PathVariable("id") Integer id) {
+    public ResponseEntity<Graph> addGraphToUser(@RequestBody Graph graph, @PathVariable("id") Integer id) {
         Graph newGraph = graphService.addGraph(graph, id);
         return new ResponseEntity<>(graph, HttpStatus.CREATED);
     }
