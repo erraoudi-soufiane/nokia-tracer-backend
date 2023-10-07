@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/graph")
+@RequestMapping("user/{id}/graph")
 public class GraphResource {
     private final GraphService graphService;
 
@@ -20,14 +20,14 @@ public class GraphResource {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Graph>> getAllGraphs() {
-        List<Graph> graphs = graphService.findAllGraphs();
+    public ResponseEntity<List<Graph>> getAllGraphs(@PathVariable("id") Long id) {
+        List<Graph> graphs = graphService.findAllGraphs(id);
         return new ResponseEntity<>(graphs, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Graph> addGraph(@RequestBody Graph graph) {
-        Graph newGraph = graphService.addGraph(graph);
+    public ResponseEntity<Graph> addGraph(@RequestBody Graph graph, @PathVariable("id") Integer id) {
+        Graph newGraph = graphService.addGraph(graph, id);
         return new ResponseEntity<>(graph, HttpStatus.CREATED);
     }
 }

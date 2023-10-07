@@ -2,7 +2,7 @@ package nokia.internship.packettracer.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -11,26 +11,31 @@ public class Graph {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @ManyToOne
+    private Integer id;
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
-    private ArrayList<Node> nodes;
+    private List<Node> nodes;
 
     @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
-    private ArrayList<Edge> edges;
-
-    public Graph(){}
+    private List<Edge> edges;
 
 
+    public Graph(User user, List<Node> nodes, List<Edge> edges){
+        this.user = user;
+        this.nodes = nodes;
+        this.edges = edges;
+    }
 
-    public Long getId() {
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,4 +44,15 @@ public class Graph {
     }
 
 
+    public void setUser(User user) {
+    }
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "id=" + id +
+                ", nodes=" + nodes +
+                ", edges=" + edges +
+                '}';
+    }
 }

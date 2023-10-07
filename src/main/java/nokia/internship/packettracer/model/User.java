@@ -2,6 +2,7 @@ package nokia.internship.packettracer.model;
 
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,7 +12,7 @@ public class User {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String username;
     private String email;
     private String password;
@@ -19,15 +20,13 @@ public class User {
     private List<Graph> graphs;
 
     public User(){}
-    public User(Long id, String username, String email, String password, Long id1, String username1, String email1, String password1, List<Graph> graphs) {
+    public User(Integer id, String username, String email, String password, Long id1, String username1, String email1, String password1, List<Graph> graphs) {
         setGraphs(graphs);
         setEmail(email);
         setId(id);
         setPassword(password);
         setUsername(username);
     }
-
-
 
 
     public String getPassword() {
@@ -54,11 +53,11 @@ public class User {
         this.username = username;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,6 +67,27 @@ public class User {
     }
 
     public void setGraphs(List<Graph> graphs) {
-        this.graphs = graphs;
+        for(Graph graph : graphs){
+            this.addGraph(graph);
+        }
+    }
+
+    public void addGraph(Graph graph){
+        if (graphs == null){
+            graphs = new ArrayList<>();
+        }
+        graphs.add(graph);
+        graph.setUser(this);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", graphs=" + graphs +
+                '}';
     }
 }

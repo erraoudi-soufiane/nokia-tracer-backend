@@ -10,7 +10,7 @@ public class Node {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private int x; // x-coordinate
     private int y; // y-coordinate
     private String name;
@@ -21,7 +21,7 @@ public class Node {
 
     public Node(){}
 
-    public Node(int id, String name, String url, int x, int y) {
+    public Node(Integer id, String name, String url, int x, int y) {
         setId(id);
         setName(name);
         setUrl(url);
@@ -30,11 +30,11 @@ public class Node {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,5 +68,16 @@ public class Node {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                '}';
     }
 }
