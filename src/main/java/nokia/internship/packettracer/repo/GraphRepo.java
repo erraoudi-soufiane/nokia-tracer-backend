@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface GraphRepo extends JpaRepository<Graph, Long> {
-    List<Graph> findAllById(Long id);
+public interface GraphRepo extends JpaRepository<Graph, Integer> {
+    List<Graph> findAllById(Integer id);
 }

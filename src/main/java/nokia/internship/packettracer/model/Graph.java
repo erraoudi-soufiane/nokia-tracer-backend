@@ -1,7 +1,9 @@
 package nokia.internship.packettracer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -13,23 +15,17 @@ public class Graph {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
-
     private String name;
 
     @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
     private List<Node> nodes;
-
     @OneToMany(mappedBy = "graph", cascade = CascadeType.ALL)
     private List<Edge> edges;
 
-
-    public Graph(User user, String name, List<Node> nodes, List<Edge> edges){
-        this.user = user;
-        this.name = name;
-        this.nodes = nodes;
-        this.edges = edges;
+    public Graph() {
     }
 
 
@@ -51,19 +47,40 @@ public class Graph {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Graph{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Node> getNodes() {
+        return nodes != null ? nodes : Collections.emptyList();
+    }
+
+
+    public void setNodes(List<Node> nodes) {
+        this.nodes = nodes;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(List<Edge> edges) {
+        this.edges = edges;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "id=" + id +
+                ", user=" + user +
+                ", name='" + name + '\'' +
+                ", nodes=" + nodes +
+                ", edges=" + edges +
+                '}';
     }
 }

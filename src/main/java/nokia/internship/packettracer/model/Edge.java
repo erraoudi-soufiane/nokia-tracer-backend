@@ -1,6 +1,7 @@
 package nokia.internship.packettracer.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,9 +11,12 @@ public class Edge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String idInGraph;
+
     // Define the relationship between Edge and Graph entities.
     @ManyToOne
     @JoinColumn(name = "graph_id")
+    @JsonIgnore
     private Graph graph;
 
     @ManyToOne
@@ -23,11 +27,7 @@ public class Edge {
     @JoinColumn(name = "target_node_id")
     private Node targetNode;
 
-    public Edge(Integer id, Graph graph, Node sourceNode, Node targetNode) {
-        this.id = id;
-        this.graph = graph;
-        this.sourceNode = sourceNode;
-        this.targetNode = targetNode;
+    public Edge() {
     }
 
 
@@ -63,10 +63,19 @@ public class Edge {
         this.id = id;
     }
 
+    public String getIdInGraph() {
+        return idInGraph;
+    }
+
+    public void setIdInGraph(String idInGraph) {
+        this.idInGraph = idInGraph;
+    }
+
     @Override
     public String toString() {
         return "Edge{" +
                 "id=" + id +
+                ", idInGraph='" + idInGraph + '\'' +
                 ", sourceNode=" + sourceNode +
                 ", targetNode=" + targetNode +
                 '}';

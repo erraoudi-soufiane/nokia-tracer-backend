@@ -14,20 +14,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
+    @Column(unique = true)
     private String email;
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Graph> graphs;
 
     public User(){}
-    public User(Integer id, String username, String email, String password, Long id1, String username1, String email1, String password1, List<Graph> graphs) {
-        setGraphs(graphs);
-        setEmail(email);
-        setId(id);
-        setPassword(password);
-        setUsername(username);
-    }
-
 
     public String getPassword() {
         return password;
@@ -66,18 +59,8 @@ public class User {
         return graphs;
     }
 
-    public void setGraphs(List<Graph> graphs) {
-        for(Graph graph : graphs){
-            this.addGraph(graph);
-        }
-    }
-
-    public void addGraph(Graph graph){
-        if (graphs == null){
-            graphs = new ArrayList<>();
-        }
-        graphs.add(graph);
-        graph.setUser(this);
+    private void setGraphs(List<Graph> graphs) {
+        this.graphs = graphs;
     }
 
     @Override
@@ -87,7 +70,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-
                 '}';
     }
 }
